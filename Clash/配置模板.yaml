@@ -36,6 +36,7 @@ dns:
       - https://8.8.8.8/dns-query
 
 # 本地配置时，将真实订阅绑定为“订阅节点”。不要把真实 URL 提交到本仓库。
+# 服务商链接即使返回完整 Clash 配置，放在这里也只读取节点，不使用服务商的 rules、dns 和 proxy-groups。
 proxy-providers:
   订阅节点:
     type: http
