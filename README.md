@@ -90,10 +90,9 @@ python3 工具/本地订阅转换器.py
 然后在浏览器打开 `http://127.0.0.1:8765`。程序只监听本机，订阅地址只保存在内存中。它会生成：
 
 - `覆写节点.yaml`：包含全部原协议节点，适合 Clash 覆写
-- `全部原协议链接.txt`：保留 SS、VMess、Trojan 等原协议
-- `仅SS-VMess链接.txt`：只保留 `ss://` 和 `vmess://`
+- `全部协议链接.txt`：保留 `ss://`、`vmess://`、`trojan://` 等原协议
 
-Trojan 不能安全转换成 SS/VMess，因此仅 SS/VMess 文件会排除 Trojan。
+Trojan 不能安全转换成 SS/VMess，因此保留为 `trojan://`，不会排除。
 
 ## 提取原始订阅链接
 

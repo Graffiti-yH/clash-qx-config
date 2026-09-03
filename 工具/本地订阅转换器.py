@@ -3,10 +3,9 @@
 
 用途：把 Clash YAML/常见 Base64 订阅转换为：
 - Clash 覆写片段（proxies: ...）
-- 全部原协议链接
-- 仅 ss:// 与 vmess:// 链接
+- 全部协议链接（包含 ss://、vmess://、trojan://）
 
-Trojan 节点不能安全地伪装成 SS/VMess，因此仅 SS/VMess 文件会排除 Trojan。
+Trojan 节点不能安全地伪装成 SS/VMess，因此保留为 trojan://，不强行转换或排除。
 """
 
 from __future__ import annotations
@@ -222,14 +221,13 @@ def 页面(message: str = "", token: str = "") -> bytes:
     if token:
         downloads = f'''<div class="downloads">
 <a href="/download/{token}/覆写节点.yaml">下载 Clash 覆写节点.yaml</a>
-<a href="/download/{token}/全部原协议链接.txt">下载全部原协议链接.txt</a>
-<a href="/download/{token}/仅SS-VMess链接.txt">下载仅 SS/VMess 链接.txt</a>
+<a href="/download/{token}/全部协议链接.txt">下载全部协议链接.txt（含 Trojan）</a>
 </div>'''
     return f'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>本地订阅转换器</title>
 <style>body{{font-family:-apple-system,BlinkMacSystemFont,sans-serif;max-width:760px;margin:48px auto;padding:0 20px;color:#222}}input{{width:100%;box-sizing:border-box;padding:12px;font-size:16px;margin:8px 0 14px}}button{{padding:10px 18px;font-size:16px}}.hint{{color:#666;line-height:1.6}}.result{{margin-top:20px;padding:14px;background:#f1f7ff;border-radius:8px;white-space:pre-wrap}}.downloads{{display:grid;gap:10px;margin-top:20px}}a{{color:#06c}}</style>
 <h1>本地订阅转换器</h1><p class="hint">仅监听 127.0.0.1。订阅地址只在本机处理，不保存到磁盘、不发送到第三方。服务商链接会被请求一次。</p>
 <form method="post" action="/generate"><label>服务商 Clash 订阅链接</label><input type="url" name="url" required autocomplete="off" placeholder="https://..."><button type="submit">生成本地文件</button></form>{result}{downloads}
-<p class="hint">说明：Trojan 不能伪装成 SS/VMess。仅 SS/VMess 文件会排除 Trojan；覆写 YAML 和全部原协议文件会保留 Trojan。</p></html>'''.encode("utf-8")
+<p class="hint">说明：Trojan 不能伪装成 SS/VMess，程序会保留为 trojan://；覆写 YAML 和全部协议文件都会保留 Trojan。</p></html>'''.encode("utf-8")
 
 
 class Handler(BaseHTTPRequestHandler):
@@ -273,18 +271,16 @@ class Handler(BaseHTTPRequestHandler):
         try:
             nodes = 获取节点(url)
             links = [x for x in (节点转链接(n) for n in nodes) if x]
-            ss_vmess = [x for x in links if x.startswith(("ss://", "vmess://"))]
             token = secrets.token_urlsafe(12)
             files: dict[str, bytes | int] = {
                 "覆写节点.yaml": 代理_yaml(nodes),
-                "全部原协议链接.txt": ("\n".join(links) + "\n").encode(),
-                "仅SS-VMess链接.txt": ("\n".join(ss_vmess) + "\n").encode(),
+                "全部协议链接.txt": ("\n".join(links) + "\n").encode(),
                 "count": len(nodes),
             }
             with 缓存锁:
                 输出缓存.clear()
                 输出缓存[token] = files
-            msg = f"已识别 {len(nodes)} 个节点；已生成覆写 YAML、全部原协议链接和仅 SS/VMess 链接。"
+            msg = f"已识别 {len(nodes)} 个节点；已生成覆写 YAML 和全部协议链接（含 Trojan）。"
             data = 页面(msg, token)
             self.send_response(200)
         except ValueError as exc:
