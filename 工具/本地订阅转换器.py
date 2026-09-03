@@ -235,7 +235,7 @@ def 页面(message: str = "", token: str = "") -> bytes:
         局域网订阅 = f'''<div class="downloads">
 <a href="/download/{token}/覆写节点.yaml">下载 Clash 覆写节点.yaml</a>
 <a href="/download/{token}/全部协议链接.txt">下载全部协议链接.txt（含 Trojan）</a>
-</div><h3>局域网订阅地址</h3><p class="hint">将下面地址粘贴到同一局域网手机的 Clash 中：</p><div class="result">{html.escape(公开地址)}/sub/{token}/clash.yaml</div>'''
+</div><h3>局域网订阅地址</h3><p class="hint">Clash 完整配置：</p><div class="result">{html.escape(公开地址)}/sub/{token}/clash.yaml</div><p class="hint">Quantumult X 节点订阅：</p><div class="result">{html.escape(公开地址)}/sub/{token}/links.txt</div>'''
         downloads = 局域网订阅
     return f'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>本地订阅转换器</title>
 <style>body{{font-family:-apple-system,BlinkMacSystemFont,sans-serif;max-width:760px;margin:48px auto;padding:0 20px;color:#222}}input{{width:100%;box-sizing:border-box;padding:12px;font-size:16px;margin:8px 0 14px}}button{{padding:10px 18px;font-size:16px}}.hint{{color:#666;line-height:1.6}}.result{{margin-top:20px;padding:14px;background:#f1f7ff;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}}.downloads{{display:grid;gap:10px;margin-top:20px}}a{{color:#06c}}</style>
