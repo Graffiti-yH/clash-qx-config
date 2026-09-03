@@ -1,0 +1,21 @@
+# 中国大陆与常见国内服务
+host-suffix,cn,direct
+host-suffix,qq.com,direct
+host-suffix,wechat.com,direct
+host-suffix,weixin.qq.com,direct
+host-suffix,alipay.com,direct
+host-suffix,taobao.com,direct
+host-suffix,tmall.com,direct
+host-suffix,jd.com,direct
+host-suffix,163.com,direct
+host-suffix,126.com,direct
+host-suffix,bilibili.com,direct
+host-suffix,douyin.com,direct
+host-suffix,amap.com,direct
+host-suffix,baidu.com,direct
+host-suffix,apple.com.cn,direct
+host-suffix,icloud.com.cn,direct
+host-suffix,10086.cn,direct
+host-suffix,10010.com,direct
+host-suffix,189.cn,direct
+host-suffix,steamcontent.com,direct

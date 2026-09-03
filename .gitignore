@@ -1,0 +1,5 @@
+# 永远不要提交真实订阅、节点密码、Token 或本地私密配置
+*.secret.yaml
+*.secret.conf
+本地订阅链接.txt
+.DS_Store

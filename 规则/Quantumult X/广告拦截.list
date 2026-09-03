@@ -1,0 +1,19 @@
+# 平衡型广告与追踪拦截
+host-suffix,doubleclick.net,reject
+host-suffix,googlesyndication.com,reject
+host-suffix,googleadservices.com,reject
+host-suffix,adservice.google.com,reject
+host-suffix,adsrvr.org,reject
+host-suffix,adnxs.com,reject
+host-suffix,adcolony.com,reject
+host-suffix,appsflyer.com,reject
+host-suffix,adjust.com,reject
+host-suffix,umeng.com,reject
+host-suffix,cnzz.com,reject
+host-suffix,baiduad.com,reject
+host-suffix,alimama.com,reject
+host-suffix,mmstat.com,reject
+host-suffix,adsame.com,reject
+host-suffix,admaster.com.cn,reject
+host-suffix,trackingio.com,reject
+host-suffix,branch.io,reject

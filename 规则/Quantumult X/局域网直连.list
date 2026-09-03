@@ -1,0 +1,12 @@
+# 局域网与本机
+host,localhost,direct
+host-suffix,local,direct
+host-suffix,lan,direct
+ip-cidr,10.0.0.0/8,direct,no-resolve
+ip-cidr,100.64.0.0/10,direct,no-resolve
+ip-cidr,127.0.0.0/8,direct,no-resolve
+ip-cidr,169.254.0.0/16,direct,no-resolve
+ip-cidr,172.16.0.0/12,direct,no-resolve
+ip-cidr,192.168.0.0/16,direct,no-resolve
+ip-cidr6,fc00::/7,direct,no-resolve
+ip-cidr6,fe80::/10,direct,no-resolve

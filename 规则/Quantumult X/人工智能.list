@@ -1,0 +1,17 @@
+# AI / 开发服务
+host-suffix,openai.com,AI—手动—美国
+host-suffix,chatgpt.com,AI—手动—美国
+host-suffix,oaistatic.com,AI—手动—美国
+host-suffix,oaiusercontent.com,AI—手动—美国
+host-suffix,anthropic.com,AI—手动—美国
+host-suffix,claude.ai,AI—手动—美国
+host-suffix,claude.com,AI—手动—美国
+host-suffix,gemini.google.com,AI—手动—美国
+host-suffix,ai.google.dev,AI—手动—美国
+host-suffix,generativelanguage.googleapis.com,AI—手动—美国
+host-suffix,grok.com,AI—手动—美国
+host-suffix,x.ai,AI—手动—美国
+host-suffix,poe.com,AI—手动—美国
+host-suffix,huggingface.co,AI—手动—美国
+host-suffix,openrouter.ai,AI—手动—美国
+host-suffix,githubcopilot.com,AI—手动—美国
