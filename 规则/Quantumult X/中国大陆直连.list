@@ -10,6 +10,15 @@ host-suffix,jd.com,direct
 host-suffix,163.com,direct
 host-suffix,126.com,direct
 host-suffix,bilibili.com,direct
+host-suffix,biliapi.com,direct
+host-suffix,biliapi.net,direct
+host-suffix,bilivideo.com,direct
+host-suffix,bilivideo.cn,direct
+host-suffix,biliimg.com,direct
+host-suffix,hdslb.com,direct
+host-suffix,b23.tv,direct
+host-suffix,biligame.com,direct
+host-keyword,bilibili,direct
 host-suffix,douyin.com,direct
 host-suffix,amap.com,direct
 host-suffix,baidu.com,direct

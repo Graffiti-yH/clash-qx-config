@@ -34,11 +34,14 @@ https://raw.githubusercontent.com/Graffiti-yH/clash-qx-config/main/规则/Clash/
 https://raw.githubusercontent.com/Graffiti-yH/clash-qx-config/main/规则/Clash/流媒体.list
 https://raw.githubusercontent.com/Graffiti-yH/clash-qx-config/main/规则/Clash/中国大陆直连.list
 https://raw.githubusercontent.com/Graffiti-yH/clash-qx-config/main/规则/Clash/局域网直连.list
-https://raw.githubusercontent.com/Graffiti-yH/clash-qx-config/main/规则/Clash/哔哩哔哩直连.list
 https://raw.githubusercontent.com/Graffiti-yH/clash-qx-config/main/规则/Clash/广告拦截.list
 ```
 
 Quantumult X 使用对应目录中的同名文件。
+
+## 统一更新
+
+推荐使用“一个本地配置外壳 + 远程订阅 + 远程规则提供商”的方式。只需一次性配置，之后可在 Clash 内分别更新节点和分流规则，无需反复导入本地文件。详见 [统一更新方案.md](文档/统一更新方案.md)。
 
 ## 使用原则
 

@@ -149,17 +149,9 @@ rule-providers:
     url: https://raw.githubusercontent.com/Graffiti-yH/clash-qx-config/main/规则/Clash/广告拦截.list
     path: ./rules/广告拦截.list
     interval: 86400
-  哔哩哔哩直连:
-    type: http
-    behavior: classical
-    format: yaml
-    url: https://raw.githubusercontent.com/Graffiti-yH/clash-qx-config/main/规则/Clash/哔哩哔哩直连.list
-    path: ./rules/哔哩哔哩直连.list
-    interval: 86400
 
 rules:
   - RULE-SET,局域网直连,DIRECT
-  - RULE-SET,哔哩哔哩直连,DIRECT
   - RULE-SET,广告拦截,REJECT
   - GEOSITE,CN,DIRECT
   - GEOIP,CN,DIRECT,no-resolve
