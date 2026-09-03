@@ -2,4 +2,7 @@
 *.secret.yaml
 *.secret.conf
 本地订阅链接.txt
+/Clash/配置-本地.yaml
+/Clash/providers/
+/Clash/rules/
 .DS_Store
