@@ -161,6 +161,8 @@ rules:
   - RULE-SET,局域网直连,DIRECT
   - RULE-SET,哔哩哔哩直连,DIRECT
   - RULE-SET,广告拦截,REJECT
+  - GEOSITE,CN,DIRECT
+  - GEOIP,CN,DIRECT,no-resolve
   - RULE-SET,中国大陆直连,DIRECT
   - RULE-SET,人工智能,AI—手动—美国
   - RULE-SET,社交软件,社交—手动—日本
