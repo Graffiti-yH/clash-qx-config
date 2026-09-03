@@ -58,7 +58,7 @@ proxy-groups:
 
   - name: AI—手动—美国
     type: select
-    proxies: [AI—自动—美国, DIRECT]
+    proxies: [AI—自动—美国, REJECT]
     use: [订阅节点]
     filter: "(?i)(美国|US|USA|United States|Los Angeles|San Francisco|New York|Seattle|Chicago|Dallas|Silicon Valley)"
 
@@ -72,7 +72,7 @@ proxy-groups:
 
   - name: 社交—手动—日本
     type: select
-    proxies: [社交—自动—日本, DIRECT]
+    proxies: [社交—自动—日本, REJECT]
     use: [订阅节点]
     filter: "(?i)(日本|JP|Japan|Tokyo|Osaka)"
 
@@ -86,7 +86,7 @@ proxy-groups:
 
   - name: 流媒体—手动—港澳台
     type: select
-    proxies: [流媒体—自动—港澳台, DIRECT]
+    proxies: [流媒体—自动—港澳台, REJECT]
     use: [订阅节点]
     filter: "(?i)(香港|HK|Hong Kong|台湾|TW|Taiwan|台灣)"
 
@@ -99,7 +99,7 @@ proxy-groups:
 
   - name: 其他海外—手动
     type: select
-    proxies: [其他海外—自动, DIRECT]
+    proxies: [其他海外—自动, REJECT]
     use: [订阅节点]
 
   - name: 未命中—阻断
