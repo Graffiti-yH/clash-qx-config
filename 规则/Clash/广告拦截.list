@@ -1,19 +1,20 @@
 # 平衡型 DNS/域名广告拦截，可按误伤情况维护
-DOMAIN-SUFFIX,doubleclick.net
-DOMAIN-SUFFIX,googlesyndication.com
-DOMAIN-SUFFIX,googleadservices.com
-DOMAIN-SUFFIX,adservice.google.com
-DOMAIN-SUFFIX,adsrvr.org
-DOMAIN-SUFFIX,adnxs.com
-DOMAIN-SUFFIX,adcolony.com
-DOMAIN-SUFFIX,appsflyer.com
-DOMAIN-SUFFIX,adjust.com
-DOMAIN-SUFFIX,umeng.com
-DOMAIN-SUFFIX,cnzz.com
-DOMAIN-SUFFIX,baiduad.com
-DOMAIN-SUFFIX,alimama.com
-DOMAIN-SUFFIX,mmstat.com
-DOMAIN-SUFFIX,adsame.com
-DOMAIN-SUFFIX,admaster.com.cn
-DOMAIN-SUFFIX,trackingio.com
-DOMAIN-SUFFIX,branch.io
+payload:
+  - DOMAIN-SUFFIX,doubleclick.net
+  - DOMAIN-SUFFIX,googlesyndication.com
+  - DOMAIN-SUFFIX,googleadservices.com
+  - DOMAIN-SUFFIX,adservice.google.com
+  - DOMAIN-SUFFIX,adsrvr.org
+  - DOMAIN-SUFFIX,adnxs.com
+  - DOMAIN-SUFFIX,adcolony.com
+  - DOMAIN-SUFFIX,appsflyer.com
+  - DOMAIN-SUFFIX,adjust.com
+  - DOMAIN-SUFFIX,umeng.com
+  - DOMAIN-SUFFIX,cnzz.com
+  - DOMAIN-SUFFIX,baiduad.com
+  - DOMAIN-SUFFIX,alimama.com
+  - DOMAIN-SUFFIX,mmstat.com
+  - DOMAIN-SUFFIX,adsame.com
+  - DOMAIN-SUFFIX,admaster.com.cn
+  - DOMAIN-SUFFIX,trackingio.com
+  - DOMAIN-SUFFIX,branch.io

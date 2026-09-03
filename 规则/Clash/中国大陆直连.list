@@ -1,27 +1,37 @@
 # 中国大陆与常见国内服务：直连
-DOMAIN-SUFFIX,cn
-DOMAIN-SUFFIX,qq.com
-DOMAIN-SUFFIX,wechat.com
-DOMAIN-SUFFIX,weixin.qq.com
-DOMAIN-SUFFIX,alipay.com
-DOMAIN-SUFFIX,taobao.com
-DOMAIN-SUFFIX,tmall.com
-DOMAIN-SUFFIX,jd.com
-DOMAIN-SUFFIX,163.com
-DOMAIN-SUFFIX,126.com
-DOMAIN-SUFFIX,bilibili.com
-DOMAIN-SUFFIX,douyin.com
-DOMAIN-SUFFIX,amap.com
-DOMAIN-SUFFIX,baidu.com
-DOMAIN-SUFFIX,bankcomm.com
-DOMAIN-SUFFIX,icbc.com.cn
-DOMAIN-SUFFIX,ccb.com
-DOMAIN-SUFFIX,abchina.com
-DOMAIN-SUFFIX,apple.com.cn
-DOMAIN-SUFFIX,icloud.com.cn
-DOMAIN-SUFFIX,miit.gov.cn
-DOMAIN-SUFFIX,10086.cn
-DOMAIN-SUFFIX,10010.com
-DOMAIN-SUFFIX,189.cn
-DOMAIN-SUFFIX,steamcontent.com
-DOMAIN-SUFFIX,steamserver.net
+payload:
+  - DOMAIN-SUFFIX,cn
+  - DOMAIN-SUFFIX,qq.com
+  - DOMAIN-SUFFIX,wechat.com
+  - DOMAIN-SUFFIX,weixin.qq.com
+  - DOMAIN-SUFFIX,alipay.com
+  - DOMAIN-SUFFIX,taobao.com
+  - DOMAIN-SUFFIX,tmall.com
+  - DOMAIN-SUFFIX,jd.com
+  - DOMAIN-SUFFIX,163.com
+  - DOMAIN-SUFFIX,126.com
+  - DOMAIN-SUFFIX,bilibili.com
+  - DOMAIN-SUFFIX,biliapi.com
+  - DOMAIN-SUFFIX,biliapi.net
+  - DOMAIN-SUFFIX,bilivideo.com
+  - DOMAIN-SUFFIX,bilivideo.cn
+  - DOMAIN-SUFFIX,biliimg.com
+  - DOMAIN-SUFFIX,hdslb.com
+  - DOMAIN-SUFFIX,b23.tv
+  - DOMAIN-SUFFIX,biligame.com
+  - DOMAIN-KEYWORD,bilibili
+  - DOMAIN-SUFFIX,douyin.com
+  - DOMAIN-SUFFIX,amap.com
+  - DOMAIN-SUFFIX,baidu.com
+  - DOMAIN-SUFFIX,bankcomm.com
+  - DOMAIN-SUFFIX,icbc.com.cn
+  - DOMAIN-SUFFIX,ccb.com
+  - DOMAIN-SUFFIX,abchina.com
+  - DOMAIN-SUFFIX,apple.com.cn
+  - DOMAIN-SUFFIX,icloud.com.cn
+  - DOMAIN-SUFFIX,miit.gov.cn
+  - DOMAIN-SUFFIX,10086.cn
+  - DOMAIN-SUFFIX,10010.com
+  - DOMAIN-SUFFIX,189.cn
+  - DOMAIN-SUFFIX,steamcontent.com
+  - DOMAIN-SUFFIX,steamserver.net

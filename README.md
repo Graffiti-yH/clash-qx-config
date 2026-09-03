@@ -34,6 +34,7 @@ https://raw.githubusercontent.com/Graffiti-yH/clash-qx-config/main/规则/Clash/
 https://raw.githubusercontent.com/Graffiti-yH/clash-qx-config/main/规则/Clash/流媒体.list
 https://raw.githubusercontent.com/Graffiti-yH/clash-qx-config/main/规则/Clash/中国大陆直连.list
 https://raw.githubusercontent.com/Graffiti-yH/clash-qx-config/main/规则/Clash/局域网直连.list
+https://raw.githubusercontent.com/Graffiti-yH/clash-qx-config/main/规则/Clash/哔哩哔哩直连.list
 https://raw.githubusercontent.com/Graffiti-yH/clash-qx-config/main/规则/Clash/广告拦截.list
 ```
 
