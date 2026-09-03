@@ -59,6 +59,16 @@ Quantumult X 使用对应目录中的同名文件。
 - MITM/重写暂不作为默认配置；只有明确需要时再在 Quantumult X 中单独启用，并排除银行、支付、微信、QQ 等敏感 App。
 - 本仓库不配置路由器，不作为局域网网关。
 
+## 无订阅纯分流配置
+
+Clash 纯分流配置（不包含订阅链接和节点）：
+
+```text
+https://raw.githubusercontent.com/Graffiti-yH/clash-qx-config/main/Clash/%E7%BA%AF%E5%88%86%E6%B5%81%E9%85%8D%E7%BD%AE.yaml
+```
+
+该配置的策略组会自动接收后续通过“覆写”加入的节点。
+
 ## 生成本地 Clash 配置
 
 服务商链接不要直接作为活动配置。推荐只执行一次：
@@ -68,6 +78,22 @@ python3 工具/生成本地Clash配置.py
 ```
 
 脚本会隐藏输入订阅地址，生成被 Git 忽略的 `Clash/配置-本地.yaml`。将它导入 Clash 后，节点和分流规则都可以在 Clash 内更新。
+
+## 本地订阅转换器
+
+在不把订阅地址发送给第三方的前提下，将服务商链接转换为本地 Clash 覆写节点和协议链接：
+
+```bash
+python3 工具/本地订阅转换器.py
+```
+
+然后在浏览器打开 `http://127.0.0.1:8765`。程序只监听本机，订阅地址只保存在内存中。它会生成：
+
+- `覆写节点.yaml`：包含全部原协议节点，适合 Clash 覆写
+- `全部原协议链接.txt`：保留 SS、VMess、Trojan 等原协议
+- `仅SS-VMess链接.txt`：只保留 `ss://` 和 `vmess://`
+
+Trojan 不能安全转换成 SS/VMess，因此仅 SS/VMess 文件会排除 Trojan。
 
 ## 提取原始订阅链接
 
