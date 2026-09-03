@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""本地订阅转换器：只在 127.0.0.1 运行，不保存订阅地址。
+"""本地订阅转换器：默认只在 127.0.0.1 运行，不保存订阅地址。
+
+使用 --局域网 后，可让同一局域网内的手机通过临时 token 订阅生成的配置。
 
 用途：把 Clash YAML/常见 Base64 订阅转换为：
 - Clash 覆写片段（proxies: ...）
@@ -27,6 +29,8 @@ from pathlib import Path
 最大响应 = 10 * 1024 * 1024
 输出缓存: dict[str, dict[str, bytes | int]] = {}
 缓存锁 = threading.Lock()
+公开地址 = "http://127.0.0.1:8765"
+监听说明 = "127.0.0.1（仅本机）"
 
 
 def 解码_base64(value: str) -> bytes:
@@ -207,10 +211,19 @@ def 节点转链接(node: dict) -> str | None:
 
 
 def 代理_yaml(nodes: list[dict]) -> bytes:
-    rows = ["# 本地生成的 Clash 覆写片段；仅保存于本机\nproxies:"]
+    rows = ["# 本地生成的 Clash 节点片段；不包含服务商订阅地址\nproxies:"]
     for node in nodes:
         rows.append("  - " + json.dumps(node, ensure_ascii=False, separators=(",", ":")))
     return ("\n".join(rows) + "\n").encode("utf-8")
+
+
+def 完整_clash_yaml(nodes: list[dict]) -> bytes:
+    """把节点插入纯分流配置，生成可被 Clash 直接订阅的完整配置。"""
+    template = (根目录 / "Clash" / "纯分流配置.yaml").read_text(encoding="utf-8")
+    rows = ["# 本地生成的 Clash 配置；节点来自本次转换，分流规则来自 GitHub\nproxies:"]
+    for node in nodes:
+        rows.append("  - " + json.dumps(node, ensure_ascii=False, separators=(",", ":")))
+    return ("\n".join(rows) + "\n" + template).encode("utf-8")
 
 
 def 页面(message: str = "", token: str = "") -> bytes:
@@ -219,16 +232,16 @@ def 页面(message: str = "", token: str = "") -> bytes:
         result = f'<div class="result">{html.escape(message)}</div>'
     downloads = ""
     if token:
-        downloads = f'''<div class="downloads">
+        局域网订阅 = f'''<div class="downloads">
 <a href="/download/{token}/覆写节点.yaml">下载 Clash 覆写节点.yaml</a>
 <a href="/download/{token}/全部协议链接.txt">下载全部协议链接.txt（含 Trojan）</a>
-</div>'''
+</div><h3>局域网订阅地址</h3><p class="hint">将下面地址粘贴到同一局域网手机的 Clash 中：</p><div class="result">{html.escape(公开地址)}/sub/{token}/clash.yaml</div>'''
+        downloads = 局域网订阅
     return f'''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>本地订阅转换器</title>
-<style>body{{font-family:-apple-system,BlinkMacSystemFont,sans-serif;max-width:760px;margin:48px auto;padding:0 20px;color:#222}}input{{width:100%;box-sizing:border-box;padding:12px;font-size:16px;margin:8px 0 14px}}button{{padding:10px 18px;font-size:16px}}.hint{{color:#666;line-height:1.6}}.result{{margin-top:20px;padding:14px;background:#f1f7ff;border-radius:8px;white-space:pre-wrap}}.downloads{{display:grid;gap:10px;margin-top:20px}}a{{color:#06c}}</style>
-<h1>本地订阅转换器</h1><p class="hint">仅监听 127.0.0.1。订阅地址只在本机处理，不保存到磁盘、不发送到第三方。服务商链接会被请求一次。</p>
-<form method="post" action="/generate"><label>服务商 Clash 订阅链接</label><input type="url" name="url" required autocomplete="off" placeholder="https://..."><button type="submit">生成本地文件</button></form>{result}{downloads}
-<p class="hint">说明：Trojan 不能伪装成 SS/VMess，程序会保留为 trojan://；覆写 YAML 和全部协议文件都会保留 Trojan。</p></html>'''.encode("utf-8")
-
+<style>body{{font-family:-apple-system,BlinkMacSystemFont,sans-serif;max-width:760px;margin:48px auto;padding:0 20px;color:#222}}input{{width:100%;box-sizing:border-box;padding:12px;font-size:16px;margin:8px 0 14px}}button{{padding:10px 18px;font-size:16px}}.hint{{color:#666;line-height:1.6}}.result{{margin-top:20px;padding:14px;background:#f1f7ff;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}}.downloads{{display:grid;gap:10px;margin-top:20px}}a{{color:#06c}}</style>
+<h1>本地订阅转换器</h1><p class="hint">{html.escape(监听说明)}。订阅地址只在本机处理，不保存到磁盘、不发送到第三方。服务商链接会被请求一次。</p>
+<form method="post" action="/generate"><label>服务商 Clash 订阅链接</label><input type="url" name="url" required autocomplete="off" placeholder="https://..."><button type="submit">生成本地配置</button></form>{result}{downloads}
+<p class="hint">说明：Trojan 不能伪装成 SS/VMess，程序会保留为 trojan://；完整 Clash 配置和覆写 YAML 都会保留 Trojan。</p></html>'''.encode("utf-8")
 
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, format: str, *args) -> None:
@@ -242,14 +255,18 @@ class Handler(BaseHTTPRequestHandler):
             self.wfile.write(页面())
             return
         parts = urllib.parse.urlsplit(self.path).path.strip("/").split("/")
-        if len(parts) == 3 and parts[0] == "download":
+        if len(parts) == 3 and parts[0] in {"download", "sub"}:
             token, filename = parts[1], urllib.parse.unquote(parts[2])
+            文件名 = filename
+            if parts[0] == "sub":
+                文件名 = {"clash.yaml": "clash.yaml", "proxies.yaml": "覆写节点.yaml", "links.txt": "全部协议链接.txt"}.get(filename, "")
             with 缓存锁:
                 item = 输出缓存.get(token)
-            if item and filename in item:
-                data = item[filename]
+            if item and 文件名 in item:
+                data = item[文件名]
+                content_type = "text/yaml; charset=utf-8" if filename.endswith("yaml") else "text/plain; charset=utf-8"
                 self.send_response(200)
-                self.send_header("Content-Type", "application/octet-stream")
+                self.send_header("Content-Type", content_type)
                 self.send_header("Content-Disposition", f'attachment; filename="{filename}"')
                 self.send_header("Content-Length", str(len(data)))
                 self.end_headers()
@@ -273,6 +290,7 @@ class Handler(BaseHTTPRequestHandler):
             links = [x for x in (节点转链接(n) for n in nodes) if x]
             token = secrets.token_urlsafe(12)
             files: dict[str, bytes | int] = {
+                "clash.yaml": 完整_clash_yaml(nodes),
                 "覆写节点.yaml": 代理_yaml(nodes),
                 "全部协议链接.txt": ("\n".join(links) + "\n").encode(),
                 "count": len(nodes),
@@ -294,11 +312,39 @@ class Handler(BaseHTTPRequestHandler):
 
 def main() -> None:
     import argparse
+    import subprocess
+
     parser = argparse.ArgumentParser(description="本地订阅转换器")
     parser.add_argument("--端口", type=int, default=8765)
+    parser.add_argument("--局域网", action="store_true", help="允许同一局域网设备访问")
+    parser.add_argument("--地址", help="局域网订阅地址中显示的 Mac IP；不填则自动检测")
     args = parser.parse_args()
-    server = ThreadingHTTPServer(("127.0.0.1", args.端口), Handler)
-    print(f"本地订阅转换器已启动：http://127.0.0.1:{args.端口}")
+
+    global 公开地址, 监听说明
+    if args.局域网:
+        bind = "0.0.0.0"
+        display_ip = args.地址
+        if not display_ip:
+            for interface in ("en0", "en1"):
+                try:
+                    display_ip = subprocess.check_output(
+                        ["ipconfig", "getifaddr", interface], stderr=subprocess.DEVNULL,
+                        text=True, timeout=2,
+                    ).strip()
+                    if display_ip:
+                        break
+                except (OSError, subprocess.SubprocessError):
+                    pass
+        display_ip = display_ip or "请替换为 Mac 局域网 IP"
+        公开地址 = f"http://{display_ip}:{args.端口}"
+        监听说明 = "监听所有网卡（仅建议在可信家庭局域网使用）"
+    else:
+        bind = "127.0.0.1"
+        公开地址 = f"http://127.0.0.1:{args.端口}"
+        监听说明 = "仅监听 127.0.0.1"
+
+    server = ThreadingHTTPServer((bind, args.端口), Handler)
+    print(f"本地订阅转换器已启动：{公开地址}")
     print("按 Ctrl+C 停止；不会打印或保存订阅地址。")
     try:
         server.serve_forever()
